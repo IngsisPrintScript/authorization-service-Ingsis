@@ -4,8 +4,6 @@ import com.ingsis.permission.userPermissions.dto.CreatePermission;
 import com.ingsis.permission.userPermissions.dto.FilterDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Permissions;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,8 +13,8 @@ public class PermissionController {
 
     private final PermissionService permissionService;
 
-    public PermissionController(PermissionService permissions) {
-        this.permissionService = permissions;
+    public PermissionController(PermissionService permissionService) {
+        this.permissionService = permissionService;
     }
 
     @PostMapping
@@ -24,7 +22,7 @@ public class PermissionController {
         return permissionService.createPermissions(permissions.userId(),permissions.snippetId(),permissions.actions());
     }
 
-    @GetMapping()
+    @PostMapping("/getSnippets")
     public ResponseEntity<List<UUID>> getSnippetsId(@RequestParam String userId, @RequestBody FilterDTO filterDTO) {
         return permissionService.getSnippets(userId,filterDTO.actions());
     }
