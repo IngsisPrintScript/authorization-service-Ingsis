@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -38,4 +37,12 @@ public interface PermissionRepository extends JpaRepository<UserPermissions, UUI
             @Param("snippetId") UUID snippetId,
             @Param("userId") String userId
     );
+
+    @Modifying
+    @Transactional
+    @Query("""
+    DELETE FROM UserPermissions p
+    WHERE p.snippetId = :snippetId
+    """)
+    void deleteBySnippetId(UUID snippetId);
 }

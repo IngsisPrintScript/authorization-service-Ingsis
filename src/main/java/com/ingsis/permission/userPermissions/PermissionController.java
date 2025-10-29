@@ -32,9 +32,13 @@ public class PermissionController {
         return permissionService.createPermissions(permissions.userId(),permissions.snippetId(),permissions.actions());
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/delete")
     public ResponseEntity<String> delete(@RequestParam String userId, @RequestBody UUID snippetId) {
         return permissionService.deletePermission(snippetId, userId);
     }
 
+    @DeleteMapping()
+    public ResponseEntity<String> deleteSnippet(@RequestBody UUID snippetId) {
+        return permissionService.deleteSnippetPermission(snippetId);
+    }
 }

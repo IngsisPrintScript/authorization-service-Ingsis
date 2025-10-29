@@ -40,4 +40,9 @@ public class PermissionService {
         permissionRepository.deleteBySnippetIdAndUserId(snippetId,userId);
         return ResponseEntity.ok().body("Permission deleted") ;
     }
+
+    public ResponseEntity<String> deleteSnippetPermission(UUID snippetId) {
+        permissionRepository.deleteBySnippetId(snippetId);
+        return ResponseEntity.ok().body("Snippet deleted") ;
+    }
 }
