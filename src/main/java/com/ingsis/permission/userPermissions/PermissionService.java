@@ -1,7 +1,6 @@
 package com.ingsis.permission.userPermissions;
 
-import com.ingsis.permission.userPermissions.dto.Actions;
-import org.apache.coyote.Response;
+import com.ingsis.permission.userPermissions.dto.AuthorizationActions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +19,16 @@ public class PermissionService {
         this.permissionRepository = permissionRepository;
     }
 
-    public ResponseEntity<String> createPermissions(String userId, UUID snippetId, Actions actions){
-        logger.info("Creating Permission for {} by {}", snippetId,userId);
-        permissionRepository.save(new UserPermissions(userId,snippetId,actions));
+    public ResponseEntity<String> createPermissions(String userId, UUID snippetId, AuthorizationActions authorizationActions){
+        logger.info("Creating Permission for {} by {} and the action {}", snippetId,userId,authorizationActions);
+        permissionRepository.save(new UserPermissions(userId,snippetId, authorizationActions));
         return ResponseEntity.ok().body("Permission created") ;
     }
 
-    public ResponseEntity<List<UUID>> getSnippets(String userId, Actions actions){
-        logger.info("Getting Permissions for {} by {}", userId,actions);
+    public ResponseEntity<List<UUID>> getSnippets(String userId, AuthorizationActions authorizationActions){
+        logger.info("Getting Permissions for {} by {}", userId, authorizationActions);
         List<UUID> snippets = permissionRepository
-                .findByUserIdAndAction(userId, actions)
+                .findByUserIdAndAction(userId, authorizationActions)
                 .stream()
                 .map(UserPermissions::getSnippetId)
                 .toList();

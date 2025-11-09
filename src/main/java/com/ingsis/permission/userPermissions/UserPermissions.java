@@ -1,6 +1,6 @@
 package com.ingsis.permission.userPermissions;
 
-import com.ingsis.permission.userPermissions.dto.Actions;
+import com.ingsis.permission.userPermissions.dto.AuthorizationActions;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -21,9 +21,9 @@ public class UserPermissions {
     private UUID snippetId;
 
     @Enumerated(EnumType.STRING)
-    private Actions action;
+    private AuthorizationActions action;
 
-    public UserPermissions(String userId, UUID snippetId, Actions action) {
+    public UserPermissions(String userId, UUID snippetId, AuthorizationActions action) {
         this.userId = userId;
         this.snippetId = snippetId;
         this.action = action;
@@ -38,7 +38,7 @@ public class UserPermissions {
         return snippetId;
     }
 
-    public Actions getAction() {
+    public AuthorizationActions getAction() {
         return action;
     }
 

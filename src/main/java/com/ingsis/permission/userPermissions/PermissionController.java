@@ -24,7 +24,7 @@ public class PermissionController {
 
     @PostMapping("/getSnippets")
     public ResponseEntity<List<UUID>> getSnippetsId(@RequestParam String userId, @RequestBody FilterDTO filterDTO) {
-        return permissionService.getSnippets(userId,filterDTO.actions());
+        return permissionService.getSnippets(userId,filterDTO.authorizationActions());
     }
 
     @PostMapping("/update")

@@ -1,6 +1,6 @@
 package com.ingsis.permission.userPermissions;
 
-import com.ingsis.permission.userPermissions.dto.Actions;
+import com.ingsis.permission.userPermissions.dto.AuthorizationActions;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -19,12 +19,12 @@ public interface PermissionRepository extends JpaRepository<UserPermissions, UUI
         FROM UserPermissions p
         WHERE p.userId = :userId
           AND (
-                (:action = 'ALL' AND p.action = com.ingsis.permission.userPermissions.dto.Actions.ALL)
-             OR (:action <> 'ALL' AND p.action <> com.ingsis.permission.userPermissions.dto.Actions.ALL)
+                (:action = 'ALL' AND p.action = com.ingsis.permission.userPermissions.dto.AuthorizationActions.ALL)
+             OR (:action <> 'ALL' AND p.action <> com.ingsis.permission.userPermissions.dto.AuthorizationActions.ALL)
           )
     """)
     List<UserPermissions> findByUserIdAndAction(@Param("userId") String userId,
-                                                @Param("action") Actions action);
+                                                @Param("action") AuthorizationActions action);
 
     @Modifying
     @Transactional

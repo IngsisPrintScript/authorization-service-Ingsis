@@ -1,16 +1,17 @@
 spring:
+  application:
+    name: ingsis
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:permissions}
-    username: ${DB_USERNAME:app}
-    password: ${DB_PASSWORD:app}
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
 server:
-  port: 8082
-
-
+  port: 8086
+  address: 0.0.0.0
