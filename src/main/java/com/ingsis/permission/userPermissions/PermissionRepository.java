@@ -45,4 +45,6 @@ public interface PermissionRepository extends JpaRepository<UserPermissions, UUI
     WHERE p.snippetId = :snippetId
     """)
     void deleteBySnippetId(UUID snippetId);
+
+    UserPermissions findBySnippetId(UUID snippetId);
 }

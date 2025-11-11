@@ -19,29 +19,32 @@ public class PermissionService {
         this.permissionRepository = permissionRepository;
     }
 
-    public ResponseEntity<String> createPermissions(String userId, UUID snippetId, AuthorizationActions authorizationActions){
+    public String createPermissions(String userId, UUID snippetId, AuthorizationActions authorizationActions){
         logger.info("Creating Permission for {} by {} and the action {}", snippetId,userId,authorizationActions);
         permissionRepository.save(new UserPermissions(userId,snippetId, authorizationActions));
-        return ResponseEntity.ok().body("Permission created") ;
+        return "Permission created";
     }
 
-    public ResponseEntity<List<UUID>> getSnippets(String userId, AuthorizationActions authorizationActions){
+    public List<UUID> getSnippets(String userId, AuthorizationActions authorizationActions){
         logger.info("Getting Permissions for {} by {}", userId, authorizationActions);
-        List<UUID> snippets = permissionRepository
+        return permissionRepository
                 .findByUserIdAndAction(userId,authorizationActions.name())
                 .stream()
                 .map(UserPermissions::getSnippetId)
                 .toList();
-        return ResponseEntity.ok().body(snippets);
     }
 
-    public ResponseEntity<String> deletePermission(UUID snippetId, String userId) {
+    public String deletePermission(UUID snippetId, String userId) {
         permissionRepository.deleteBySnippetIdAndUserId(snippetId,userId);
-        return ResponseEntity.ok().body("Permission deleted") ;
+        return "Permission deleted";
     }
 
-    public ResponseEntity<String> deleteSnippetPermission(UUID snippetId) {
+    public String deleteSnippetPermission(UUID snippetId) {
         permissionRepository.deleteBySnippetId(snippetId);
-        return ResponseEntity.ok().body("Snippet deleted") ;
+        return "Snippet deleted";
+    }
+
+    public UserPermissions getUserIdBySnippetId(UUID snippetId) {
+        return permissionRepository.findBySnippetId(snippetId);
     }
 }
