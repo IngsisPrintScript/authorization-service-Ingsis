@@ -15,16 +15,16 @@ import java.util.UUID;
 public interface PermissionRepository extends JpaRepository<UserPermissions, UUID> {
 
     @Query("""
-        SELECT p
-        FROM UserPermissions p
-        WHERE p.userId = :userId
-          AND (
-                (:action = 'ALL' AND p.action = com.ingsis.permission.userPermissions.dto.AuthorizationActions.ALL)
-             OR (:action <> 'ALL' AND p.action <> com.ingsis.permission.userPermissions.dto.AuthorizationActions.ALL)
-          )
-    """)
+    SELECT p
+    FROM UserPermissions p
+    WHERE p.userId = :userId
+      AND (
+            (:action = 'ALL' AND p.action = 'ALL')
+         OR (:action <> 'ALL' AND p.action <> 'ALL')
+      )
+""")
     List<UserPermissions> findByUserIdAndAction(@Param("userId") String userId,
-                                                @Param("action") AuthorizationActions action);
+                                                @Param("action") String action);
 
     @Modifying
     @Transactional

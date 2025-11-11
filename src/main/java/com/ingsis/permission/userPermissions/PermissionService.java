@@ -28,7 +28,7 @@ public class PermissionService {
     public ResponseEntity<List<UUID>> getSnippets(String userId, AuthorizationActions authorizationActions){
         logger.info("Getting Permissions for {} by {}", userId, authorizationActions);
         List<UUID> snippets = permissionRepository
-                .findByUserIdAndAction(userId, authorizationActions)
+                .findByUserIdAndAction(userId,authorizationActions.name())
                 .stream()
                 .map(UserPermissions::getSnippetId)
                 .toList();
