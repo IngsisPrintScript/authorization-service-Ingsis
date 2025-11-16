@@ -14,14 +14,14 @@ public interface PermissionRepository extends JpaRepository<UserPermissions, UUI
 
   @Query(
       """
-    SELECT p
-    FROM UserPermissions p
-    WHERE p.userId = :userId
-      AND (
-            (:action = 'ALL' AND p.action = 'ALL')
-         OR (:action <> 'ALL' AND p.action <> 'ALL')
-      )
-""")
+      SELECT p
+      FROM UserPermissions p
+      WHERE p.userId = :userId
+        AND (
+              (:action = 'ALL' AND p.action = 'ALL')
+           OR (:action <> 'ALL' AND p.action <> 'ALL')
+        )
+      """)
   List<UserPermissions> findByUserIdAndAction(
       @Param("userId") String userId, @Param("action") String action);
 
@@ -29,19 +29,19 @@ public interface PermissionRepository extends JpaRepository<UserPermissions, UUI
   @Transactional
   @Query(
       """
-    DELETE FROM UserPermissions p
-    WHERE p.snippetId = :snippetId
-      AND p.userId = :userId
-""")
+      DELETE FROM UserPermissions p
+      WHERE p.snippetId = :snippetId
+        AND p.userId = :userId
+      """)
   void deleteBySnippetIdAndUserId(
       @Param("snippetId") UUID snippetId, @Param("userId") String userId);
 
   @Modifying
   @Transactional
   @Query("""
-    DELETE FROM UserPermissions p
-    WHERE p.snippetId = :snippetId
-    """)
+      DELETE FROM UserPermissions p
+      WHERE p.snippetId = :snippetId
+      """)
   void deleteBySnippetId(UUID snippetId);
 
   UserPermissions findBySnippetId(UUID snippetId);
