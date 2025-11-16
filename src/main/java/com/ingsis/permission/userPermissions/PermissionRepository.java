@@ -1,20 +1,19 @@
 package com.ingsis.permission.userPermissions;
 
-import com.ingsis.permission.userPermissions.dto.AuthorizationActions;
 import jakarta.transaction.Transactional;
+import java.util.List;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.UUID;
-
 @Repository
 public interface PermissionRepository extends JpaRepository<UserPermissions, UUID> {
 
-    @Query("""
+  @Query(
+      """
     SELECT p
     FROM UserPermissions p
     WHERE p.userId = :userId
@@ -23,28 +22,27 @@ public interface PermissionRepository extends JpaRepository<UserPermissions, UUI
          OR (:action <> 'ALL' AND p.action <> 'ALL')
       )
 """)
-    List<UserPermissions> findByUserIdAndAction(@Param("userId") String userId,
-                                                @Param("action") String action);
+  List<UserPermissions> findByUserIdAndAction(
+      @Param("userId") String userId, @Param("action") String action);
 
-    @Modifying
-    @Transactional
-    @Query("""
+  @Modifying
+  @Transactional
+  @Query(
+      """
     DELETE FROM UserPermissions p
     WHERE p.snippetId = :snippetId
       AND p.userId = :userId
 """)
-    void deleteBySnippetIdAndUserId(
-            @Param("snippetId") UUID snippetId,
-            @Param("userId") String userId
-    );
+  void deleteBySnippetIdAndUserId(
+      @Param("snippetId") UUID snippetId, @Param("userId") String userId);
 
-    @Modifying
-    @Transactional
-    @Query("""
+  @Modifying
+  @Transactional
+  @Query("""
     DELETE FROM UserPermissions p
     WHERE p.snippetId = :snippetId
     """)
-    void deleteBySnippetId(UUID snippetId);
+  void deleteBySnippetId(UUID snippetId);
 
-    UserPermissions findBySnippetId(UUID snippetId);
+  UserPermissions findBySnippetId(UUID snippetId);
 }
