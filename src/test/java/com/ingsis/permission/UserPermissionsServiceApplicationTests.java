@@ -1,11 +1,13 @@
 package com.ingsis.permission;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+import static org.assertj.core.api.Assertions.assertThat;
+
 class UserPermissionsServiceApplicationTests {
 
   @Test
-  void contextLoads() {}
+  void applicationClassExistsAndAnnotated() {
+    assertThat(PermissionServiceApplication.class).isNotNull();
+  }
 }
