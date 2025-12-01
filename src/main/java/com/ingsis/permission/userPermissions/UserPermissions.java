@@ -10,35 +10,32 @@ import java.util.UUID;
 
 @Entity
 public class UserPermissions {
-    @Id
-    @GeneratedValue()
-    private UUID id;
+  @Id @GeneratedValue() private UUID id;
 
-    private String userId;
+  private String userId;
 
-    private UUID snippetId;
+  private UUID snippetId;
 
-    @Enumerated(EnumType.STRING)
-    private AuthorizationActions action;
+  @Enumerated(EnumType.STRING)
+  private AuthorizationActions action;
 
-    public UserPermissions(String userId, UUID snippetId, AuthorizationActions action) {
-        this.userId = userId;
-        this.snippetId = snippetId;
-        this.action = action;
-    }
-    public UserPermissions() {
-    }
+  public UserPermissions(String userId, UUID snippetId, AuthorizationActions action) {
+    this.userId = userId;
+    this.snippetId = snippetId;
+    this.action = action;
+  }
 
-    public String getUserId() {
-        return userId;
-    }
+  public UserPermissions() {}
 
-    public UUID getSnippetId() {
-        return snippetId;
-    }
+  public String getUserId() {
+    return userId;
+  }
 
-    public AuthorizationActions getAction() {
-        return action;
-    }
+  public UUID getSnippetId() {
+    return snippetId;
+  }
 
+  public AuthorizationActions getAction() {
+    return action;
+  }
 }
