@@ -66,6 +66,23 @@ tasks.named('jacocoTestCoverageVerification', JacocoCoverageVerification) {
 	}
 }
 
+tasks.register("installGitHooks") {
+    doLast {
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            exec {
+                commandLine "bash", "./scripts/install-hooks.sh"
+            }
+        } else {
+            exec {
+                commandLine "sh", "./scripts/install-hooks.sh"
+            }
+        }
+    }
+}
+tasks.named("build") {
+    dependsOn("installGitHooks")
+}
+
 spotless {
     java {
         target 'src/**/*.java'
