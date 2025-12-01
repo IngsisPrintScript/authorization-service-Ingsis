@@ -57,21 +57,18 @@ tasks.named('jacocoTestCoverageVerification', JacocoCoverageVerification) {
 	}
 }
 
-checkstyle {
-	toolVersion = '10.15.0'
-	config = resources.text.fromFile('config/checkstyle/checkstyle.xml')
-}
-
 spotless {
-	java {
-		googleJavaFormat()
-		target 'src/**/*.java'
-	}
-	format 'gradle', {
-		target '*.gradle'
-		trimTrailingWhitespace()
-		endWithNewline()
-	}
+    java {
+        target 'src/**/*.java'
+        eclipse().configFile("config/eclipse-java-style.xml")
+        importOrder()
+        removeUnusedImports()
+        lineEndings = 'UNIX'
+    }
+}
+checkstyle {
+    toolVersion = '10.12.0'
+    configFile = file("$rootDir/config/checkstyle/checkstyle.xml")
 }
 
 tasks.named('check') {

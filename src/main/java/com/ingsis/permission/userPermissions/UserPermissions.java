@@ -2,12 +2,10 @@ package com.ingsis.permission.userPermissions;
 
 import com.ingsis.permission.userPermissions.dto.AuthorizationActions;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.EnumType;
-
-
 import java.util.UUID;
 
 @Entity
@@ -28,7 +26,8 @@ public class UserPermissions {
         this.snippetId = snippetId;
         this.action = action;
     }
-    public UserPermissions() {}
+    public UserPermissions() {
+    }
 
     public String getUserId() {
         return userId;
@@ -41,6 +40,5 @@ public class UserPermissions {
     public AuthorizationActions getAction() {
         return action;
     }
-
 
 }
