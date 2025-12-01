@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 class UserPermissionsServiceApplicationTests {
 
-  @Test
-  void applicationClassExistsAndAnnotated() {
-    assertThat(PermissionServiceApplication.class).isNotNull();
-  }
+    @Test
+    void applicationClassExistsAndAnnotated() {
+        assertThat(PermissionServiceApplication.class).isNotNull();
+    }
 }

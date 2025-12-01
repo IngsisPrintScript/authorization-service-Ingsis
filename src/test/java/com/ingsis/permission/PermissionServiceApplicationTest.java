@@ -7,9 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 class PermissionServiceApplicationTest {
 
-  @Test
-  void applicationClassAnnotatedWithSpringBootApplication() {
-    assertThat(PermissionServiceApplication.class.getAnnotation(SpringBootApplication.class))
-        .isNotNull();
-  }
+    @Test
+    void applicationClassAnnotatedWithSpringBootApplication() {
+        assertThat(PermissionServiceApplication.class.getAnnotation(SpringBootApplication.class)).isNotNull();
+    }
 }

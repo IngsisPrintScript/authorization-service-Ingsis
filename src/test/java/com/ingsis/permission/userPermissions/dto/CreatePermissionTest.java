@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 
 class CreatePermissionTest {
 
-  @Test
-  void recordHoldsValues() {
-    var id = UUID.randomUUID();
-    var r = new CreatePermission("u", id, AuthorizationActions.READ);
+    @Test
+    void recordHoldsValues() {
+        var id = UUID.randomUUID();
+        var r = new CreatePermission("u", id, AuthorizationActions.READ);
 
-    assertThat(r.userId()).isEqualTo("u");
-    assertThat(r.snippetId()).isEqualTo(id);
-    assertThat(r.actions()).isEqualTo(AuthorizationActions.READ);
-  }
+        assertThat(r.userId()).isEqualTo("u");
+        assertThat(r.snippetId()).isEqualTo(id);
+        assertThat(r.actions()).isEqualTo(AuthorizationActions.READ);
+    }
 }

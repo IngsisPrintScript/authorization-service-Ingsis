@@ -1,3 +1,4 @@
 package com.ingsis.permission.userPermissions.dto;
 
-public record FilterDTO(AuthorizationActions action) {}
+public record FilterDTO(AuthorizationActions action) {
+}

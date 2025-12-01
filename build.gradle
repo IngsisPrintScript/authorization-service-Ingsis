@@ -5,6 +5,7 @@ plugins {
 	id 'com.diffplug.spotless' version '6.25.0'
 	id 'checkstyle'
 	id 'jacoco'
+    id 'maven-publish'
 }
 
 group = 'com.ingsis'
@@ -18,7 +19,15 @@ java {
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/austral-ingsis/*")
+        credentials {
+            username = findProperty("gpr.user")
+            password = findProperty("gpr.key")
+        }
+    }
 }
 
 dependencies {

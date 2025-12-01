@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 class FilterDTOTest {
 
-  @Test
-  void recordHoldsAction() {
-    var f = new FilterDTO(AuthorizationActions.ALL);
-    assertThat(f.action()).isEqualTo(AuthorizationActions.ALL);
-  }
+    @Test
+    void recordHoldsAction() {
+        var f = new FilterDTO(AuthorizationActions.ALL);
+        assertThat(f.action()).isEqualTo(AuthorizationActions.ALL);
+    }
 }
