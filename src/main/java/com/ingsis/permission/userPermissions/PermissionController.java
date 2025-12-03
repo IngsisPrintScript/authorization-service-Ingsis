@@ -2,10 +2,9 @@ package com.ingsis.permission.userPermissions;
 
 import com.ingsis.permission.userPermissions.dto.CreatePermission;
 import com.ingsis.permission.userPermissions.dto.FilterDTO;
+import com.nimbusds.jwt.JWT;
 import java.util.List;
 import java.util.UUID;
-
-import com.nimbusds.jwt.JWT;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;

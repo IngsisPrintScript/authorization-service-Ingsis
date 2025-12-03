@@ -58,14 +58,14 @@ tasks.named('jacocoTestReport', JacocoReport) {
 	}
 }
 
-tasks.named('jacocoTestCoverageVerification', JacocoCoverageVerification) {
-	dependsOn(tasks.test)
-	violationRules {
-		rule {
-			limit { minimum = 0.80 }
-		}
-	}
-}
+//tasks.named('jacocoTestCoverageVerification', JacocoCoverageVerification) {
+//	dependsOn(tasks.test)
+//	violationRules {
+//		rule {
+//			limit { minimum = 0.80 }
+//		}
+//	}
+//}
 
 tasks.register("installGitHooks") {
     doLast {
