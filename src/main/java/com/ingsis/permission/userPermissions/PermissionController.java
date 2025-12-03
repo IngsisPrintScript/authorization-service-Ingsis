@@ -4,7 +4,10 @@ import com.ingsis.permission.userPermissions.dto.CreatePermission;
 import com.ingsis.permission.userPermissions.dto.FilterDTO;
 import java.util.List;
 import java.util.UUID;
+
+import com.nimbusds.jwt.JWT;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,34 +27,36 @@ public class PermissionController {
     }
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody CreatePermission permissions) {
+    public ResponseEntity<String> create(@AuthenticationPrincipal JWT jwt, @RequestBody CreatePermission permissions) {
         return ResponseEntity.ok(permissionService.createPermissions(permissions.userId(), permissions.snippetId(),
                 permissions.actions()));
     }
 
     @PostMapping("/getSnippets")
-    public ResponseEntity<List<UUID>> getSnippetsId(@RequestParam String userId, @RequestBody FilterDTO filterDTO) {
+    public ResponseEntity<List<UUID>> getSnippetsId(@AuthenticationPrincipal JWT jwt, @RequestParam String userId,
+            @RequestBody FilterDTO filterDTO) {
         return ResponseEntity.ok(permissionService.getSnippets(userId, filterDTO.action()));
     }
 
     @PostMapping("/update")
-    public ResponseEntity<String> update(@RequestBody CreatePermission permissions) {
+    public ResponseEntity<String> update(@AuthenticationPrincipal JWT jwt, @RequestBody CreatePermission permissions) {
         return ResponseEntity.ok(permissionService.createPermissions(permissions.userId(), permissions.snippetId(),
                 permissions.actions()));
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> delete(@RequestParam String userId, @RequestBody UUID snippetId) {
+    public ResponseEntity<String> delete(@AuthenticationPrincipal JWT jwt, @RequestParam String userId,
+            @RequestBody UUID snippetId) {
         return ResponseEntity.ok(permissionService.deletePermission(snippetId, userId));
     }
 
     @DeleteMapping()
-    public ResponseEntity<String> deleteSnippet(@RequestBody UUID snippetId) {
+    public ResponseEntity<String> deleteSnippet(@AuthenticationPrincipal JWT jwt, @RequestBody UUID snippetId) {
         return ResponseEntity.ok(permissionService.deleteSnippetPermission(snippetId));
     }
 
     @GetMapping()
-    public ResponseEntity<String> getUserId(@RequestParam UUID snippetId) {
+    public ResponseEntity<String> getUserId(@AuthenticationPrincipal JWT jwt, @RequestParam UUID snippetId) {
         return ResponseEntity.ok(permissionService.getUserIdBySnippetId(snippetId).getUserId());
     }
 }
