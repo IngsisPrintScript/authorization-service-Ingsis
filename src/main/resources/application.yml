@@ -24,5 +24,5 @@ okta:
     audience: ${AUTH0_AUDIENCE}
 
 server:
-  port: ${API_PORT:8088}
+  port: ${API_PORT}
   address: 0.0.0.0
