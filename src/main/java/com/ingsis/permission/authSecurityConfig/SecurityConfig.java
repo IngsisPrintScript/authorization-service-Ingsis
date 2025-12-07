@@ -1,5 +1,7 @@
 package com.ingsis.permission.authSecurityConfig;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,8 +22,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.ForwardedHeaderFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 @Configuration
 public class SecurityConfig {
 
@@ -33,8 +33,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated()).cors(withDefaults())
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults())).csrf(AbstractHttpConfigurer::disable);
+        http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
+                .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
@@ -42,11 +44,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:*", "https://snippet-dev.duckdns.org",
-                "https://snippet-prod.duckdns.org"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:3000",
+                "http://127.0.0.1:5173", "https://snippet-dev.duckdns.org", "https://snippet-prod.duckdns.org"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(false);
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -62,9 +64,5 @@ public class SecurityConfig {
         OAuth2TokenValidator<Jwt> validator = new DelegatingOAuth2TokenValidator<>(withIssuer, audienceValidator);
         jwtDecoder.setJwtValidator(validator);
         return jwtDecoder;
-    }
-    @Bean
-    public ForwardedHeaderFilter forwardedHeaderFilter() {
-        return new ForwardedHeaderFilter();
     }
 }
