@@ -22,7 +22,9 @@ okta:
     issuer: ${AUTH0_ISSUER_URI}
     # Replace with the API Identifier for your Auth0 API.
     audience: ${AUTH0_AUDIENCE}
-
+logging:
+  level:
+    root: INFO
 server:
   port: ${API_PORT}
   address: 0.0.0.0
