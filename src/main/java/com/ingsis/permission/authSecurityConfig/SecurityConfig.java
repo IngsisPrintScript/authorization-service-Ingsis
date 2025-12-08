@@ -20,7 +20,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.ForwardedHeaderFilter;
 
 @Configuration
 public class SecurityConfig {
@@ -35,8 +34,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
-                .csrf(AbstractHttpConfigurer::disable);
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults())).csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
