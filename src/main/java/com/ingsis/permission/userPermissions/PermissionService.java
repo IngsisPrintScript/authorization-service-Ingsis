@@ -18,13 +18,11 @@ public class PermissionService {
     }
 
     public String createPermissions(String userId, UUID snippetId, AuthorizationActions authorizationActions) {
-        logger.info("Creating Permission for {} by {} and the action {}", snippetId, userId, authorizationActions);
         permissionRepository.save(new UserPermissions(userId, snippetId, authorizationActions));
         return "Permission created";
     }
 
     public List<UUID> getSnippets(String userId, AuthorizationActions authorizationActions) {
-        logger.info("Getting Permissions for {} by {}", userId, authorizationActions);
         return permissionRepository.findByUserIdAndAction(userId, authorizationActions.name()).stream()
                 .map(UserPermissions::getSnippetId).toList();
     }
