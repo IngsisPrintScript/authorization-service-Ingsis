@@ -40,5 +40,11 @@ public interface PermissionRepository extends JpaRepository<UserPermissions, UUI
             """)
     void deleteBySnippetId(UUID snippetId);
 
-    UserPermissions findBySnippetId(UUID snippetId);
+    @Query("""
+            SELECT p
+            FROM UserPermissions p
+            WHERE p.snippetId = :snippetId
+              AND p.action = 'ALL'
+            """)
+    UserPermissions findBySnippetId(@Param("snippetId") UUID snippetId);
 }

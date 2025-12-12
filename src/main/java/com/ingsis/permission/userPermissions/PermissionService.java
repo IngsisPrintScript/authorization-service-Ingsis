@@ -3,15 +3,12 @@ package com.ingsis.permission.userPermissions;
 import com.ingsis.permission.userPermissions.dto.AuthorizationActions;
 import java.util.List;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PermissionService {
 
     private final PermissionRepository permissionRepository;
-    private static final Logger logger = LoggerFactory.getLogger(PermissionService.class);
 
     public PermissionService(PermissionRepository permissionRepository) {
         this.permissionRepository = permissionRepository;
