@@ -2,6 +2,7 @@
 
 
 
+
 Servicio Spring Boot (Java 21, Gradle) con Postgres. Incluye formatter (Spotless), linter (Checkstyle), cobertura (JaCoCo) y CI (GitHub Actions).
 
 ## Requisitos
@@ -53,6 +54,7 @@ Archivo `src/main/resources/application.yml` apunta a Postgres local. Variables 
 ## Troubleshooting
 - Si falla `spotless*`: ejecutar `./gradlew spotlessApply`.
 - Si falla cobertura en `check`: `./gradlew test jacocoTestReport` y abrir el reporte HTML para identificar clases sin cubrir.
+
 
 
 
