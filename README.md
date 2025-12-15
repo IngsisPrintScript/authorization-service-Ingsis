@@ -10,6 +10,8 @@ Servicio Spring Boot (Java 21, Gradle) con Postgres. Incluye formatter (Spotless
 
 
 
+
+
 ## Servicios locales
 - Postgres 16 en `docker-compose.yml` (usuario `app`, password `app`, DB `permissions`)
 - Adminer en `http://localhost:8080`
@@ -50,6 +52,7 @@ Archivo `src/main/resources/application.yml` apunta a Postgres local. Variables 
 ## Troubleshooting
 - Si falla `spotless*`: ejecutar `./gradlew spotlessApply`.
 - Si falla cobertura en `check`: `./gradlew test jacocoTestReport` y abrir el reporte HTML para identificar clases sin cubrir.
+
 
 
 
