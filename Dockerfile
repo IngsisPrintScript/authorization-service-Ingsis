@@ -1,38 +1,35 @@
-# --- Stage 1: build ---
+# --- Stage 1: build the application ---
 FROM gradle:8.4-jdk21-alpine AS builder
+# (usa la imagen oficial de Gradle con JDK 21)
 
 WORKDIR /home/gradle/project
 
-# Cache de dependencias
-COPY build.gradle settings.gradle gradlew gradle ./
-RUN gradle --no-daemon build -x test
+# Copiar sólo los archivos necesarios para cachear dependencias
+COPY build.gradle settings.gradle gradlew gradle /home/gradle/project/
 
-# Código
-COPY . .
-RUN gradle --no-daemon clean bootJar
+# Descargar dependencias usando el wrapper
+RUN chmod +x gradlew && ./gradlew --no-daemon assemble -x test || return 0
 
+# Copiar el resto del código
+COPY . /home/gradle/project
 
-# --- Stage 2: runtime ---
+# Build real, generando el .jar usando el wrapper
+RUN chmod +x gradlew && ./gradlew --no-daemon clean bootJar
+
+# --- Stage 2: run the application ---
 FROM eclipse-temurin:21-jre-alpine
+# (imagen base JRE 21 liviana)
 
+# Crear directorio
 WORKDIR /app
 
-# App
+# Copiar el jar desde el stage anterior
 COPY --from=builder /home/gradle/project/build/libs/*.jar app.jar
 
-# New Relic (runtime)
-RUN mkdir -p /app/newrelic \
- && wget -q https://download.newrelic.com/newrelic/java-agent/newrelic-agent/current/newrelic-java.zip \
- && unzip newrelic-java.zip -d /app/newrelic \
- && rm newrelic-java.zip
-
-# Config básica (podés versionarla o inyectarla)
-COPY newrelic.yml /app/newrelic/newrelic.yml
-
+# Variables de entorno (opcional)
 ENV JAVA_OPTS=""
-ENV NEW_RELIC_APP_NAME="permission-service"
-ENV NEW_RELIC_LOG=stdout
 
 EXPOSE 8086
 
-ENTRYPOINT ["sh", "-c", "java -javaagent:/app/newrelic/newrelic.jar $JAVA_OPTS -jar app.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+
