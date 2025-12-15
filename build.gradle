@@ -64,6 +64,10 @@ bootRun {
             "-javaagent:${buildDir}/newrelic/newrelic.jar"
     ]
 }
+tasks.named("bootJar") {
+    dependsOn unzipNewRelic
+}
+
 
 /* =======================
    Tests / Coverage
