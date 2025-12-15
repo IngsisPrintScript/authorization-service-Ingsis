@@ -3,7 +3,8 @@ FROM gradle:8.4-jdk21-alpine AS builder
 
 WORKDIR /home/gradle/project
 
-COPY build.gradle settings.gradle gradlew gradle /home/gradle/project/
+# Copiar sólo los archivos necesarios para cachear dependencias (incluye config para spotless)
+COPY build.gradle settings.gradle gradlew gradle config /home/gradle/project/
 
 RUN gradle --no-daemon build -x test || return 0
 
@@ -25,3 +26,4 @@ ENV JAVA_OPTS=""
 EXPOSE 8086
 
 ENTRYPOINT ["sh", "-c", "java -javaagent:/app/newrelic.jar $JAVA_OPTS -jar app.jar"]
+
