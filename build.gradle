@@ -69,6 +69,10 @@ tasks.named("bootJar") {
 }
 
 
+tasks.named("bootJar") {
+    dependsOn unzipNewRelic
+}
+
 /* =======================
    Tests / Coverage
    ======================= */
